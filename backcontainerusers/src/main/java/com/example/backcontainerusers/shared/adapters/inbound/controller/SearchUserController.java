@@ -25,14 +25,4 @@ public class SearchUserController implements SearchUserResource {
                    .body(ex.getMessage());
        }
     }
-
-    @Override
-    public ResponseEntity<?> searchUsersWithoutLocation(Long searcher) {
-        try {
-            return searchUserUseCasePort.searchWithoutLocation(searcher);
-        } catch (GenericErrorClass ex) {
-            return ResponseEntity.badRequest()
-                    .body(ex.getMessage());
-        }
-    }
 }

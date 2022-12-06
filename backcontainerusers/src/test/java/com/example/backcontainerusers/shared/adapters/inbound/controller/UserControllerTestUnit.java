@@ -27,7 +27,6 @@ import java.util.Date;
 
 @AutoConfigureMockMvc
 @ExtendWith(value = SpringExtension.class)
-@AutoConfigureTestDatabase
 @WebMvcTest(UserController.class)
 class UserControllerTestUnit {
 
@@ -54,8 +53,8 @@ class UserControllerTestUnit {
                 .password("12345")
                 .confirmedAcc(false)
                 .description("blabla")
-                .maxAge(LocalDate.parse("24/05/2002", df))
-                .minimumAge(LocalDate.parse("24/05/2002", df))
+                .maxAge(28)
+                .minimumAge(18)
                 .gender(Genders.WOMAN)
                 .preferedGender(Genders.MAN)
                 .zodiac(ZodiacEnum.AQUARIUS)
@@ -91,8 +90,8 @@ class UserControllerTestUnit {
                 .password("12345")
                 .confirmedAcc(false)
                 .description("blabla")
-                .maxAge(LocalDate.parse("24/05/2002", df))
-                .minimumAge(LocalDate.parse("24/05/2002", df))
+                .maxAge(25)
+                .minimumAge(18)
                 .gender(Genders.WOMAN)
                 .preferedGender(Genders.MAN)
                 .zodiac(ZodiacEnum.AQUARIUS)

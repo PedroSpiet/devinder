@@ -15,9 +15,9 @@ import java.util.Date;
 public record User(@NotNull @NotBlank @Min(value = 5) String nameUser,
                    @NotNull @NotBlank LocalDate birthdayDate, @NotNull @NotBlank String city,
                    @NotNull @NotBlank String uf,
-                   @NotNull @NotBlank String description, @NotNull @NotBlank LocalDate maxAge,
-                   @NotNull @NotBlank LocalDate minimumAge, boolean disabled, ZodiacEnum zodiac,
-                   UserIntention intention, boolean confirmedAcc, @NotBlank @NotNull Genders preferedGender,
+                   @NotNull @NotBlank String description, @NotNull @NotBlank int maxAge,
+                   @NotNull @NotBlank int minimumAge, Boolean disabled, ZodiacEnum zodiac,
+                   UserIntention intention, Boolean confirmedAcc, @NotBlank @NotNull Genders preferedGender,
                    @NotNull @Email String email, @NotNull String password, @NotNull Genders gender,
                    Double latitude, Double longitude, String country) {
 

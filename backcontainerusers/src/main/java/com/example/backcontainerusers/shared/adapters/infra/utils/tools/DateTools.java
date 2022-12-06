@@ -1,12 +1,15 @@
 package com.example.backcontainerusers.shared.adapters.infra.utils.tools;
 
 
+import org.springframework.stereotype.Component;
+
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 
+@Component
 public class DateTools {
 
     public static int calcUserAge(Date date) {

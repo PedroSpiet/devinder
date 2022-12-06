@@ -1,7 +1,7 @@
 package com.example.backcontainerusers.shared.adapters.outbound.persistence.repository;
 
-import com.example.backcontainerusers.application.domain.User;
 import com.example.backcontainerusers.application.dto.UserDTO;
+import com.example.backcontainerusers.application.dto.UserResponseDTO;
 import com.example.backcontainerusers.application.dto.UserSearchRequestDto;
 import com.example.backcontainerusers.application.ports.MySqlUserRepositoryPort;
 import com.example.backcontainerusers.shared.adapters.infra.utils.mapper.UserMapper;
@@ -24,15 +24,28 @@ public class MySqlUserRepository implements MySqlUserRepositoryPort {
         this.springDataUserRepository = repository;
     }
 
-    public User save(UserDTO userDTO) {
+    public void save(UserDTO userDTO) {
         var converted = userMapper.userDtoToUserEntity(userDTO);
+
+        if (userDTO.getIsUpdate()) {
+            var user = springDataUserRepository.findById(userDTO.getId())
+                    .orElseThrow(() -> new GenericErrorClass("Not FOund!"));
+
+            user.setLocationLatitude(userDTO.getLocationLatitude());
+            user.setLocationLongitude(userDTO.getLocationLongitude());
+
+            var saved = springDataUserRepository.saveAndFlush(user);
+            userMapper.userEntityToDomain(saved);
+            return;
+        }
+
         var result = springDataUserRepository.save(converted);
-        return userMapper.userEntityToDomain(result);
+        userMapper.userEntityToDomain(result);
     }
 
     @Override
     public List<UserDTO> findByCountry(UserSearchRequestDto searchRequestDto, Pageable pageable) {
-        var users = springDataUserRepository.findAllByCountry(searchRequestDto.getCountry(), pageable);
+        var users = springDataUserRepository.findAllByCountry(searchRequestDto.getCountry(), searchRequestDto.getMinDateDob(), searchRequestDto.getMaxDateDob(), pageable);
         return users.stream().map(userMapper::userEntityToDto)
                 .collect(Collectors.toList());
     }
@@ -53,10 +66,18 @@ public class MySqlUserRepository implements MySqlUserRepositoryPort {
     }
 
     @Override
-    public List<UserDTO> searchUsers(UserSearchRequestDto searchRequestDto, Pageable page) {
+    public List<UserResponseDTO> searchUsers(UserSearchRequestDto searchRequestDto, Pageable page) {
         var result =  springDataUserRepository.searchUser(searchRequestDto, page);
 
-        return result.stream().map(userMapper::userEntityToDto)
+        return result.stream().map(userMapper::userEntityToResponse)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public UserDTO saveAndFlush(UserDTO userDTO) {
+        var mapper = userMapper.userDtoToUserEntity(userDTO);
+        var result = springDataUserRepository.saveAndFlush(mapper);
+
+        return userMapper.userEntityToDto(result);
     }
 }

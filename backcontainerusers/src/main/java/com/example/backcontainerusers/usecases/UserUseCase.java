@@ -26,13 +26,8 @@ public class UserUseCase implements UserUseCasePort {
     public void handler(UserDTO userDTO) throws ApiException {
         try {
             userDTO.setConfirmedAcc(false);
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            log.info("Salvando {}", userDTO.getNameUser());
+            userDTO.setIsUpdate(false);
             var existsEmail = verifyEmail(userDTO.getEmail());
-
-            userDTO.setBirthdayDate(LocalDate.parse(userDTO.getBirthdayDate().format(formatter)));
-            userDTO.setMaxAge(LocalDate.parse(userDTO.getMaxAge().format(formatter)));
-            userDTO.setMinimumAge(LocalDate.parse(userDTO.getMinimumAge().format(formatter)));
 
             if(existsEmail) {
                 throw new GenericErrorClass("Email já existe na base de dados");

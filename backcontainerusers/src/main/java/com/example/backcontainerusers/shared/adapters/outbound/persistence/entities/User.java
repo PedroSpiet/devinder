@@ -45,10 +45,10 @@ public class User {
     private String description;
 
     @Column(name = "max_age", nullable = false)
-    LocalDate maxAge;
+    int maxAge;
 
     @Column(name = "minimum_age", nullable = false)
-    LocalDate minimumAge;
+    int minimumAge;
 
     @Column(name = "zodiac")
     @Enumerated(EnumType.STRING)
@@ -59,9 +59,9 @@ public class User {
     UserIntention intention;
 
     @Column(name = "confirmed_acc")
-    boolean confirmedAcc;
+    Boolean confirmedAcc;
 
-    boolean disabled;
+    Boolean disabled;
 
     @Column(name = "prefer_gender", nullable = false)
     @Enumerated(EnumType.STRING)

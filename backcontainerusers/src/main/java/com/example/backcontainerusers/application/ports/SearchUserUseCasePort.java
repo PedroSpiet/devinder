@@ -8,6 +8,4 @@ public interface SearchUserUseCasePort {
     ResponseEntity<SearchDTO> search(Double latitude, Double longitude, int distance,
                                      Long searcher);
 
-    ResponseEntity<SearchDTO> searchWithoutLocation(Long searcherId);
-
 }

@@ -17,8 +17,5 @@ public interface SearchUserResource {
     public ResponseEntity<?> searchUsers(@PathVariable Double latitude, @PathVariable Double longitude,
                                          @PathVariable int distance, @PathVariable Long search);
 
-    @GetMapping(value = "/{searcher}")
-    @ApiOperation(value = "Information About users wihhout params", response = SearchDTO.class)
-    public ResponseEntity<?> searchUsersWithoutLocation(@PathVariable Long searcher);
 
 }

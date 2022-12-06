@@ -5,8 +5,8 @@ CREATE TABLE IF NOT EXISTS tb_user(
     city varchar(50) not null,
     uf varchar(2) not null,
     description varchar(200),
-    max_age Date not null,
-    minimum_age Date not null,
+    max_age int not null,
+    minimum_age int not null,
     zodiac varchar(25) default null,
     intention varchar(50) not null,
     confirmed_acc TINYINT,
@@ -18,6 +18,6 @@ CREATE TABLE IF NOT EXISTS tb_user(
     password varchar(255) not null,
     location_latitude DECIMAL(10,8),
     location_longitude DECIMAL(10,8),
-    Country varchar(50)
+    country varchar(50)
 );
 

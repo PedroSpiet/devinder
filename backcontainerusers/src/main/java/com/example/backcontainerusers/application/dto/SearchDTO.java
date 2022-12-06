@@ -18,7 +18,7 @@ public class SearchDTO {
         IGNORE_ALL
     }
 
-    private List<UserDTO> users;
+    private List<UserResponseDTO> users;
     private String message;
     private SearchStage stage;
 
